@@ -1,27 +1,34 @@
-const cipher = { encode:
+const cipher = {
+  encode: function (shift, text) {
+    if (typeof shift != "number") {
+      throw TypeError();
+    }
+    if (typeof text != "string") {
+      throw TypeError();
+    }
 
-function encode (text, shift) {
-  let converterTexto = "";
-  for (let index = 0; index < text.length; index++) {
-    console.log(text.charCodeAt(index) - 65 + shift);
+    let converterTexto = "";
+    for (let index = 0; index < text.length; index++) {
+      let cifrar = ((text.charCodeAt(index) - 65 + shift) % 26) + 65;
+      converterTexto = converterTexto + String.fromCharCode(cifrar);
+    }
+    return converterTexto;
+  },
 
-    let cifrar = ((text.charCodeAt(index) - 65 + shift) % 26) + 65;
-    console.log(cifrar);
-    converterTexto = converterTexto + String.fromCharCode(cifrar);
-  }
-  console.log(converterTexto);
-  return converterTexto;
-},
-decode: 
-function decode (text, shift) {
-  let desconverterTexto = "";
-  for (let index = 0; index < text.length; index++) {
-    let decifrar = (((((text.charCodeAt(index) - 65) - shift) + 26) % 26) + 65);
-    console.log(decifrar);
-    desconverterTexto = desconverterTexto + String.fromCharCode(decifrar);
-  }
-  console.log(desconverterTexto);
-  return desconverterTexto;
-}
-}
+  decode: function (shift, text) {
+    if (typeof shift != "number") {
+      throw TypeError();
+    }
+    if (typeof text != "string") {
+      throw TypeError();
+    }
+
+    let desconverterTexto = "";
+    for (let index = 0; index < text.length; index++) {
+      let decifrar = ((text.charCodeAt(index) - 90 - shift) % 26) + 90;
+      desconverterTexto = desconverterTexto + String.fromCharCode(decifrar);
+    }
+    return desconverterTexto;
+  },
+};
 export default cipher;
